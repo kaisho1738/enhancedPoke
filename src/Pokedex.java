@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Pokedex {
     public static enum Type{
-        NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
+        NONE, NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
         BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
     }
     public static enum MoveClass{ HM, TM }
@@ -68,7 +68,13 @@ public class Pokedex {
         System.out.println("Enter name: ");
         String name = scanner.nextLine();
 
-        System.out.println("Enter");
+        System.out.println("Enter Type 1: ");
+        String type1 = scanner.next().toUpperCase();
+        Type pokeType1 = Type.valueOf(type1);
+
+        System.out.println("Enter Type 2: ");
+        String type2 = scanner.nextLine();
+        Type pokeType2 = Type.valueOf(type2);
 
 
         System.out.println();
@@ -82,5 +88,9 @@ public class Pokedex {
     public static void pause() {
         System.out.print("Press ENTER to continue . . .");
         scanner.nextLine();
+    }
+
+    public static void printPokeTypes(){
+
     }
 }
