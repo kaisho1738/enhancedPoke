@@ -7,6 +7,7 @@ public class Pokemon {
     private int baseLevel;
     private int evolvesFrom;
     private int evolvesTo;
+    private int evoLevel;
     private int hp;
     private int atk;
     private int def;
@@ -20,7 +21,7 @@ public class Pokemon {
 
     //constructor - create pokemon with cry
     public Pokemon(int dexNum, String pokeName, Pokedex.Type type1, Pokedex.Type type2, int baseLevel,
-                   int evolvesFrom, int evolvesTo, int hp, int atk, int def, int spd, String cry){
+                   int evolvesFrom, int evolvesTo, int evoLevel, int hp, int atk, int def, int spd, String cry){
         this.dexNum = dexNum;
         this.pokeName = pokeName;
         this.type1 = type1;
@@ -38,7 +39,7 @@ public class Pokemon {
 
     //pokemon w/o cry
     public Pokemon(int dexNum, String pokeName, Pokedex.Type type1, Pokedex.Type type2, int baseLevel,
-                   int evolvesFrom, int evolvesTo, int hp, int atk, int def, int spd){
+                   int evolvesFrom, int evolvesTo, int evoLevel, int hp, int atk, int def, int spd){
         this.dexNum = dexNum;
         this.pokeName = pokeName;
         this.type1 = type1;
@@ -76,6 +77,7 @@ public class Pokemon {
     public int getEvolvesTo(){
         return evolvesTo;
     }
+    public int getEvoLevel(){return evoLevel; }
     public int getHp(){
         return hp;
     }

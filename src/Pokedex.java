@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Pokedex {
     public static enum Type{
-        NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
+        NONE, NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
         BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
     }
     public static enum MoveClass{ HM, TM }
@@ -25,6 +25,7 @@ public class Pokedex {
                 "                                                                                                                                      \n");
         pause();
         clearScreen();
+        addPokemon();
     }
 
     public static void menu(){
@@ -62,14 +63,62 @@ public class Pokedex {
 
 
     public static void addPokemon(){
-        System.out.println("Enter Pokedex Number: ");
+        System.out.print("Enter Pokedex Number: ");
         int dexNum = scanner.nextInt();
 
-        System.out.println("Enter name: ");
+        scanner.nextLine();
+        System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
-        System.out.println("Enter");
+        System.out.print("Enter Type 1: ");
+        String type1 = scanner.next().toUpperCase();
+        scanner.nextLine();
+        Type pokeType1 = Type.valueOf(type1);
 
+
+        System.out.print("Enter Type 2: ");
+        String type2 = scanner.nextLine();
+        Type pokeType2 = Type.valueOf(type2);
+
+        System.out.print("Enter Base Level: ");
+        int baseLevel = scanner.nextInt();
+
+        System.out.print("Enter Evolves From: ");
+        int evolvesFrom = scanner.nextInt();
+
+        System.out.print("Enter Evolves To: ");
+        int evolvesTo = scanner.nextInt();
+
+        System.out.print("Enter Evolution Level: ");
+        int evoLevel = scanner.nextInt();
+
+        System.out.print("Enter Health Points: ");
+        int hp = scanner.nextInt();
+
+        System.out.print("Enter Attack: ");
+        int atk = scanner.nextInt();
+
+        System.out.print("Enter Defense: ");
+        int def = scanner.nextInt();
+
+        System.out.print("Enter Speed: ");
+        int spd = scanner.nextInt();
+
+        System.out.print("Would you like to create a cry for your pokemon? (Y/N): ");
+        char option = scanner.next().charAt(0);
+
+        if(Character.toUpperCase(option) == 'Y'){
+            System.out.println("Enter Pokemon Cry: ");
+            String cry = scanner.nextLine();
+            Pokemon pokemon = new Pokemon(dexNum, name, pokeType1, pokeType2, baseLevel, evolvesFrom
+                    ,evolvesTo,evoLevel,hp,atk,def,spd,cry);
+        } else if (Character.toUpperCase(option) == 'N'){
+            System.out.println("No Cry was Selected");
+            Pokemon pokemon = new Pokemon(dexNum, name, pokeType1, pokeType2, baseLevel, evolvesFrom
+                    ,evolvesTo,evoLevel,hp,atk,def,spd);
+        } else{
+            System.out.println("Error: Invalid Input!");
+        }
 
         System.out.println();
     }
@@ -82,5 +131,9 @@ public class Pokedex {
     public static void pause() {
         System.out.print("Press ENTER to continue . . .");
         scanner.nextLine();
+    }
+
+    public static void printPokeTypes(){
+
     }
 }
