@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Pokedex {
     public enum Type {
-        NONE, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
-        BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
+        NONE, BUG, DARK, DRAGON, ELECTRIC, FAIRY, FIGHTING, FIRE, FLYING, GHOST, GRASS,
+        GROUND, ICE, NORMAL, POISON, PSYCHIC, ROCK, STEEL, WATER, UNKNOWN
     }
 
     public enum MoveClass {HM, TM}
@@ -12,6 +12,13 @@ public class Pokedex {
     private ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
     public Scanner scanner = new Scanner(System.in);
 
+
+    public void initializePokemons() {
+        Pokemon pokemon1 = new Pokemon(1, "koko", Pokedex.Type.GRASS, Pokedex.Type.NORMAL, 1, 0, 2, 1,1,1,1,1);
+        pokemons.add(pokemon1);
+        Pokemon pokemon2 = new Pokemon(2, "popo", Pokedex.Type.GRASS, Pokedex.Type.NORMAL, 1, 1, 3, 1,1,1,1,1);
+        pokemons.add(pokemon2);
+    }
 
     public void printTitle() {
         System.out.println("\n" +
@@ -41,6 +48,8 @@ public class Pokedex {
                     addPokemon();
                     break;
                 case 2:
+                    viewPokemons(pokemons);
+                    break;
 
             }
         } while (option != 0);
@@ -64,7 +73,7 @@ public class Pokedex {
 
         printPokemonTypes();
         System.out.print("Enter Type 2: ");
-        String type2 = scanner.nextLine();
+        String type2 = scanner.next().toUpperCase();
         Type pokeType2 = Type.valueOf(type2);
 
         System.out.print("Enter Base Level: ");
@@ -130,9 +139,29 @@ public class Pokedex {
     }
 
     public void viewPokemons(ArrayList<Pokemon> pokemons){
+        System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");
+        System.out.println("| No.    | Name               | Type One   | Type Two   |Base Lvl    |Evo Lvl     | \033[32mHP\033[0m  | \033[31mAtk\033[0m | \033[34mDfs\033[0m | \033[33mSpd\033[0m | Evolves From    | Evolves To    |");
+        System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");
+
         for(Pokemon pokemon: pokemons){
-            System.out.println("+--------+-------------------+------------+------------+-----+-----+-----+-----+-----+-----------------+---------------+");
-            System.out.println("| No.    | Name              | Type One   | Type Two   | \033[32mHP\033[0m  | \033[31mAtk\033[0m | \033[34mDfs\033[0m | \033[33mSpd\033[0m | \033[35mSp\033[0m  | Evolves From    | Evolves To    |\n");
+            String evoTo = "n/a", evoFrom = "n/a";
+            int evoToFind = pokemon.getEvolvesTo();
+            int evoFromFind = pokemon.getEvolvesFrom();
+
+            for(Pokemon findPokemon: pokemons){
+                if(evoToFind == findPokemon.getDexNum()){
+                    evoTo = findPokemon.getPokeName();
+                }
+
+                if(evoFromFind == findPokemon.getDexNum()){
+                    evoFrom = findPokemon.getPokeName();
+                }
+            }
+
+            System.out.printf("| %-6d | %-17s  | %-8s   | %-8s   | %-3d        | %-3d        | %-3d | %-3d | %-3d | %-3d | %-15s | %-13s |\n", pokemon.getDexNum(), pokemon.getPokeName(), pokemon.getType1(), pokemon.getType2(),
+                    pokemon.getBaseLevel(), pokemon.getEvoLevel(), pokemon.getHp(),pokemon.getAtk(), pokemon.getDef(), pokemon.getSpd(), evoFrom, evoTo);
+            System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");
+
         }
     }
 }
