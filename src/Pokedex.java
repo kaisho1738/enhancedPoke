@@ -1,67 +1,51 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Pokedex {
-    public static enum Type{
-        NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
+    public  enum Type{
+        NONE, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON, GROUND, FLYING, PSYCHIC,
         BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
     }
-    public static enum MoveClass{ HM, TM }
-    public static Pokemon[] pokemon = new Pokemon[100];
-    public static Scanner scanner = new Scanner(System.in);
+    public enum MoveClass{ HM, TM }
 
-    public static void main(String[] args){
-        int option = -1;
-        printTitle();
-        menu();
-    }
+    private ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
+    public Scanner scanner = new Scanner(System.in);
 
-    public static void printTitle(){
+
+    public void printTitle(){
         System.out.println("\n" +
-                "██████╗  ██████╗ ██╗  ██╗███████╗██████╗ ███████╗██╗  ██╗    ███████╗██╗███╗   ███╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ \n" +
-                "██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝██╔══██╗██╔════╝╚██╗██╔╝    ██╔════╝██║████╗ ████║██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗\n" +
-                "██████╔╝██║   ██║█████╔╝ █████╗  ██║  ██║█████╗   ╚███╔╝     ███████╗██║██╔████╔██║██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝\n" +
-                "██╔═══╝ ██║   ██║██╔═██╗ ██╔══╝  ██║  ██║██╔══╝   ██╔██╗     ╚════██║██║██║╚██╔╝██║██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗\n" +
-                "██║     ╚██████╔╝██║  ██╗███████╗██████╔╝███████╗██╔╝ ██╗    ███████║██║██║ ╚═╝ ██║╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║\n" +
-                "╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚══════╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝\n" +
-                "                                                                                                                                      \n");
+                "██████╗  ██████╗ ██╗  ██╗███████╗██████╗ ███████╗██╗  ██╗    ███╗   ███╗ ██████╗ ██████╗ ██╗   ██╗██╗     ███████╗\n" +
+                "██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝██╔══██╗██╔════╝╚██╗██╔╝    ████╗ ████║██╔═══██╗██╔══██╗██║   ██║██║     ██╔════╝\n" +
+                "██████╔╝██║   ██║█████╔╝ █████╗  ██║  ██║█████╗   ╚███╔╝     ██╔████╔██║██║   ██║██║  ██║██║   ██║██║     █████╗  \n" +
+                "██╔═══╝ ██║   ██║██╔═██╗ ██╔══╝  ██║  ██║██╔══╝   ██╔██╗     ██║╚██╔╝██║██║   ██║██║  ██║██║   ██║██║     ██╔══╝  \n" +
+                "██║     ╚██████╔╝██║  ██╗███████╗██████╔╝███████╗██╔╝ ██╗    ██║ ╚═╝ ██║╚██████╔╝██████╔╝╚██████╔╝███████╗███████╗\n" +
+                "╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n" +
+                "                                                                                                                  \n");
         pause();
-        clearScreen();
     }
 
-    public static void menu(){
+    public void menu(){
         int option = -1;
         do{
-            System.out.println("Welcome to the Pokedex!");
+            System.out.println("Welcome to the Pokedex Module!");
             System.out.println("0. Exit");
-            System.out.println("1.Pokedex Module");
-            System.out.println("2.Moves Module");
-            System.out.println("3.Items Module");
-            System.out.print("Which module would you like to access? ");
+            System.out.println("1. Add Pokemon");
+            System.out.println("2. View Pokemons");
+            System.out.println("3. Search Pokemons");
+            System.out.print("What would you like to do?: ");
             option = scanner.nextInt();
+
             switch(option){
-                case 1:
-                    System.out.println("0. Exit");
-                    System.out.println("1.Add Pokemon");
-                    System.out.println("2.View all Pokemons");
-                    System.out.println("3.Search Pokemon");
-                    System.out.print("What do you want to do? ");
-                    option = scanner.nextInt();
-                    pokedexModule(option);
-                    break;
+                case 1: addPokemon();
+                break;
+                case 2:
             }
         } while(option != 0);
 
     }
 
-    public static void pokedexModule(int option){
-        switch(option){
-            case 1: //addpokemon
-            case 2: //viewpokemon
-            case 3: //searchpokemon
-        }
-    }
 
-
-    public static void addPokemon(){
+    public void addPokemon(){
         System.out.print("Enter Pokedex Number: ");
         int dexNum = scanner.nextInt();
 
@@ -105,29 +89,28 @@ public class Pokedex {
 
         System.out.print("Would you like to create a cry for your pokemon? (Y/N): ");
         char option = scanner.next().charAt(0);
+        scanner.nextLine();
+
+        Pokemon pokemon;
 
         if(Character.toUpperCase(option) == 'Y'){
             System.out.println("Enter Pokemon Cry: ");
             String cry = scanner.nextLine();
-            Pokemon pokemon = new Pokemon(dexNum, name, pokeType1, pokeType2, baseLevel, evolvesFrom
+            pokemon = new Pokemon(dexNum, name, pokeType1, pokeType2, baseLevel, evolvesFrom
                     ,evolvesTo,evoLevel,hp,atk,def,spd,cry);
         } else if (Character.toUpperCase(option) == 'N'){
             System.out.println("No Cry was Selected");
-            Pokemon pokemon = new Pokemon(dexNum, name, pokeType1, pokeType2, baseLevel, evolvesFrom
+            pokemon = new Pokemon(dexNum, name, pokeType1, pokeType2, baseLevel, evolvesFrom
                     ,evolvesTo,evoLevel,hp,atk,def,spd);
         } else{
             System.out.println("Error: Invalid Input!");
+            return;
         }
 
-        System.out.println();
+        pokemons.add(pokemon);
     }
 
-    public static void clearScreen() {
-        System.out.print("\033[2J\033[H");
-        System.out.flush();
-    }
-
-    public static void pause() {
+    public void pause() {
         System.out.print("Press ENTER to continue . . .");
         scanner.nextLine();
     }
