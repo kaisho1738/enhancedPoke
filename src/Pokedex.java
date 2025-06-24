@@ -14,10 +14,15 @@ public class Pokedex {
 
 
     public void initializePokemons() {
-        Pokemon pokemon1 = new Pokemon(1, "koko", Pokedex.Type.GRASS, Pokedex.Type.NORMAL, 1, 0, 2, 1,1,1,1,1);
-        pokemons.add(pokemon1);
-        Pokemon pokemon2 = new Pokemon(2, "popo", Pokedex.Type.GRASS, Pokedex.Type.NORMAL, 1, 1, 3, 1,1,1,1,1);
-        pokemons.add(pokemon2);
+        Pokemon pokemon1 = new Pokemon(1, "Bulbasaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 1, 0, 2, 16, 45, 49, 49, 45);
+        Pokemon pokemon2 = new Pokemon(2, "Ivysaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 16, 1, 3, 32, 60, 62, 63, 60);
+        Pokemon pokemon3 = new Pokemon(3, "Venusaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 32, 2, 0, 0, 80, 82, 83, 80);
+        Pokemon pokemon4 = new Pokemon(4, "Charmander", Pokedex.Type.FIRE, Pokedex.Type.NORMAL, 1, 0, 5, 16, 39, 52, 43, 65);
+        Pokemon pokemon5 = new Pokemon(5, "Charmeleon", Pokedex.Type.FIRE, Pokedex.Type.NORMAL, 16, 4, 6, 36, 58, 64, 58, 80);
+        Pokemon pokemon6 = new Pokemon(6, "Charizard", Pokedex.Type.FIRE, Pokedex.Type.FLYING, 36, 5, 0, 0, 78, 84, 78, 100);
+        Pokemon pokemon7 = new Pokemon(7, "Squirtle", Pokedex.Type.WATER, Pokedex.Type.NORMAL, 1, 0, 8, 16, 44, 48, 65, 43);
+        Pokemon pokemon8 = new Pokemon(8, "Wartortle", Pokedex.Type.WATER, Pokedex.Type.NORMAL, 16, 7, 9, 36, 59, 63, 80, 58);
+        Pokemon pokemon9 = new Pokemon(9, "Blastoise", Pokedex.Type.WATER, Pokedex.Type.NORMAL, 36, 8, 0, 0, 79, 83, 100, 78);
     }
 
     public void printTitle() {
