@@ -274,6 +274,11 @@ public class Pokedex {
         System.out.println("Pokemon not Found");
     }
     public boolean pokeDexChecker(int indexNum){
+        if(indexNum < 0){
+            System.out.println("Index Number Cannot be Less than 0");
+            return false;
+        }
+
         for(Pokemon checkDex: pokemons){
             if(indexNum == checkDex.getDexNum()){
                 System.out.println("Error: Pokedex Number Already Taken!");
