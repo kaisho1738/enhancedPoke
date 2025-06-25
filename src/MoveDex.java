@@ -64,22 +64,43 @@ public class MoveDex {
         String descrip = scanner.nextLine();
 
         printClassification();
-        System.out.print("Classification: ");
-        String classif = scanner.next().toUpperCase();
-        scanner.nextLine();
-        MoveClass classification = MoveClass.valueOf(classif);
+        MoveClass classification;
+
+        try {
+            System.out.print("Classification: ");
+            String classif = scanner.next().toUpperCase();
+            scanner.nextLine();
+            classification = MoveClass.valueOf(classif);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Classification!");
+            return;
+        }
 
         Pokedex.printPokemonTypes();
-        System.out.print("Type 1: ");
-        String type1 = scanner.next().toUpperCase();
-        Pokedex.Type pokeType1 = Pokedex.Type.valueOf(type1);
+        Pokedex.Type pokeType1 = Pokedex.Type.NORMAL; //default
+
+        try {
+            System.out.print("Type 1: ");
+            String type1 = scanner.next().toUpperCase();
+             pokeType1 = Pokedex.Type.valueOf(type1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Move Type!");
+            return;
+        }
+
+        Pokedex.printPokemonTypes();
+        Pokedex.Type pokeType2 = Pokedex.Type.NORMAL; //default
+
+        try {
+            System.out.print("Type 2: ");
+            String type2 = scanner.next().toUpperCase();
+             pokeType2 = Pokedex.Type.valueOf(type2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Move Type!");
+            return;
+        }
 
         Move move;
-
-        Pokedex.printPokemonTypes();
-        System.out.print("Type 2: ");
-        String type2 = scanner.next().toUpperCase();
-        Pokedex.Type pokeType2 = Pokedex.Type.valueOf(type2);
         move = new Move(name, descrip, classification, pokeType1, pokeType2);
         moves.add(move);
 
