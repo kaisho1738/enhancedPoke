@@ -98,6 +98,10 @@ public class Pokedex {
         System.out.print("Enter Pokedex Number: ");
         int dexNum = scanner.nextInt();
 
+        if(!pokeDexChecker(dexNum)){
+            return;
+        }
+
         scanner.nextLine();
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
@@ -164,10 +168,10 @@ public class Pokedex {
     public void printPokemonTypes() {
         System.out.println("***********************************************************************");
         System.out.println("*                            TYPE SELECTION                           *");
-        System.out.println("* 0: None       \033[1;32m1: Bug\033[0m        \033[1;30m2: Dark\033[0m      \033[38;2;153;51;255m3: Dragon\033[0m     \033[1;33m4: Electric\033[0m  *");
-        System.out.println("* \033[38;2;255;105;180m5: Fairy\033[0m      \033[38;2;220;20;60m6: Fighting\033[0m   \033[1;31m7: Fire\033[0m      \033[1;34m8: Flying\033[0m     \033[1;37m9: Ghost\033[0m     *");
-        System.out.println("* \033[92m10: Grass\033[0m    \033[38;2;139;69;19m11: Ground\033[0m    \033[1;96m12: Ice\033[0m      \033[1;90m13: Normal\033[0m    \033[1;95m14: Poison\033[0m    *");
-        System.out.println("* \033[38;2;163;73;164m15: Psychic\033[0m  \033[38;5;94m16: Rock\033[0m      \033[38;2;176;196;222m17: Steel\033[0m    \033[1;94m18: Water\033[0m    >19: Unknown   *");
+        System.out.println("*    None       \033[1;32m   Bug\033[0m        \033[1;30m   Dark\033[0m      \033[38;2;153;51;255m   Dragon\033[0m     \033[1;33m   Electric\033[0m  *");
+        System.out.println("* \033[38;2;255;105;180m   Fairy\033[0m      \033[38;2;220;20;60m   Fighting\033[0m   \033[1;31m   Fire\033[0m      \033[1;34m   Flying\033[0m     \033[1;37m   Ghost\033[0m     *");
+        System.out.println("* \033[92m   Grass\033[0m    \033[38;2;139;69;19m     Ground\033[0m    \033[1;96m    Ice\033[0m      \033[1;90m    Normal\033[0m    \033[1;95m    Poison\033[0m    *");
+        System.out.println("* \033[38;2;163;73;164m   Psychic\033[0m  \033[38;5;94m     Rock\033[0m      \033[38;2;176;196;222m    Steel\033[0m    \033[1;94m    Water\033[0m         Unknown   *");
         System.out.println("***********************************************************************");
     }
 
@@ -273,6 +277,15 @@ public class Pokedex {
             }
         }
         System.out.println("Pokemon not Found");
+    }
+    public boolean pokeDexChecker(int indexNum){
+        for(Pokemon checkDex: pokemons){
+            if(indexNum == checkDex.getDexNum()){
+                System.out.println("Error: Pokedex Number Already Taken!");
+                return false;
+            }
+        }
+        return true;
     }
 
 }
