@@ -7,6 +7,7 @@ public class Pokemon {
     private int baseLevel;
     private int evolvesFrom;
     private int evolvesTo;
+    private int evoLevel;
     private int hp;
     private int atk;
     private int def;
@@ -20,7 +21,7 @@ public class Pokemon {
 
     //constructor - create pokemon with cry
     public Pokemon(int dexNum, String pokeName, Pokedex.Type type1, Pokedex.Type type2, int baseLevel,
-                   int evolvesFrom, int evolvesTo, int hp, int atk, int def, int spd, String cry){
+                   int evolvesFrom, int evolvesTo, int evoLevel, int hp, int atk, int def, int spd, String cry){
         this.dexNum = dexNum;
         this.pokeName = pokeName;
         this.type1 = type1;
@@ -38,7 +39,7 @@ public class Pokemon {
 
     //pokemon w/o cry
     public Pokemon(int dexNum, String pokeName, Pokedex.Type type1, Pokedex.Type type2, int baseLevel,
-                   int evolvesFrom, int evolvesTo, int hp, int atk, int def, int spd){
+                   int evolvesFrom, int evolvesTo, int evoLevel, int hp, int atk, int def, int spd){
         this.dexNum = dexNum;
         this.pokeName = pokeName;
         this.type1 = type1;
@@ -76,6 +77,7 @@ public class Pokemon {
     public int getEvolvesTo(){
         return evolvesTo;
     }
+    public int getEvoLevel(){return evoLevel; }
     public int getHp(){
         return hp;
     }
@@ -98,14 +100,14 @@ public class Pokemon {
 
     //methods; (1) view all pokemon to be implemented in main (2) search pokemon in main
     public void addMove(Move move){
-        if(moveCount < moves.length){
+        if(moveCount < this.moves.length){
             for(int i = 0; i< moveCount;i++){
-                if(moves[i].getName().equalsIgnoreCase(move.getName())){
+                if(this.moves[i].getName().equalsIgnoreCase(move.getName())){
                     System.out.println("Error: Move already exists!");
                     return;
                 }
             }
-            moves[moveCount++] = move;
+            this.moves[moveCount++] = move;
             System.out.println(move.getName() + " added successfully!");
         } else{
             System.out.println("Error: No more slots available!");
