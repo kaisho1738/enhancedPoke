@@ -1,10 +1,14 @@
 public class main {
     public static void main(String[] args){
         Pokedex pokedex = new Pokedex();
-        pokedex.printTitle();
+        MoveDex moveDex = new MoveDex();
+        //pokedex.printTitle();
         pokedex.initializePokemons();
+        moveDex.initializeMoves();
 
-        pokedex.menu();
+        moveDex.printTitle();
+        moveDex.menu();
+        //pokedex.menu();
 
     }
 }

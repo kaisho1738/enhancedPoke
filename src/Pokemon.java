@@ -100,14 +100,14 @@ public class Pokemon {
 
     //methods; (1) view all pokemon to be implemented in main (2) search pokemon in main
     public void addMove(Move move){
-        if(moveCount < moves.length){
+        if(moveCount < this.moves.length){
             for(int i = 0; i< moveCount;i++){
-                if(moves[i].getName().equalsIgnoreCase(move.getName())){
+                if(this.moves[i].getName().equalsIgnoreCase(move.getName())){
                     System.out.println("Error: Move already exists!");
                     return;
                 }
             }
-            moves[moveCount++] = move;
+            this.moves[moveCount++] = move;
             System.out.println(move.getName() + " added successfully!");
         } else{
             System.out.println("Error: No more slots available!");

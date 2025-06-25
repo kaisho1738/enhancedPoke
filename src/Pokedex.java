@@ -7,10 +7,9 @@ public class Pokedex {
         GROUND, ICE, NORMAL, POISON, PSYCHIC, ROCK, STEEL, WATER, UNKNOWN
     }
 
-    public enum MoveClass {HM, TM}
 
     private ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
-    public Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
 
     public void initializePokemons() {
@@ -47,7 +46,7 @@ public class Pokedex {
         pause();
     }
 
-    public void pause() {
+    public static void pause() {
         System.out.print("Press ENTER to continue . . .");
         scanner.nextLine();
     }
@@ -77,7 +76,7 @@ public class Pokedex {
                     addPokemon();
                     break;
                 case 2:
-                    viewPokemons(pokemons);
+                    viewPokemons();
                     break;
                 case 3:
                     searchPokemon();
@@ -165,7 +164,7 @@ public class Pokedex {
     }
 
 
-    public void printPokemonTypes() {
+    public static void printPokemonTypes() {
         System.out.println("***********************************************************************");
         System.out.println("*                            TYPE SELECTION                           *");
         System.out.println("*    None       \033[1;32m   Bug\033[0m        \033[1;30m   Dark\033[0m      \033[38;2;153;51;255m   Dragon\033[0m     \033[1;33m   Electric\033[0m  *");
@@ -175,7 +174,7 @@ public class Pokedex {
         System.out.println("***********************************************************************");
     }
 
-    public void viewPokemons(ArrayList<Pokemon> pokemons){
+    public void viewPokemons(){
         System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");
         System.out.println("| No.    | Name               | Type One   | Type Two   |Base Lvl    |Evo Lvl     | \033[32mHP\033[0m  | \033[31mAtk\033[0m | \033[34mDfs\033[0m | \033[33mSpd\033[0m | Evolves From    | Evolves To    |");
         System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");

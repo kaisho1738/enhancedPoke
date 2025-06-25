@@ -1,14 +1,19 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Move {
 
+    //attributes
     private String name;
     private String description;
-    private Pokedex.MoveClass classification;
+    private MoveDex.MoveClass classification;
     private Pokedex.Type moveType1;
     private Pokedex.Type moveType2;
 
+
     //constructor
     //with movetype2
-    public Move(String name, String description, Pokedex.MoveClass classification,
+    public Move(String name, String description, MoveDex.MoveClass classification,
                 Pokedex.Type movetype1, Pokedex.Type movetype2){
         this.name = name;
         this.description = description;
@@ -17,19 +22,13 @@ public class Move {
         this.moveType2 = movetype2;
     }
 
-    //without movetype2
-    public Move(String name, String description, Pokedex.MoveClass classification,
-                Pokedex.Type movetype1){
-        this.name = name;
-        this.description = description;
-        this.classification = classification;
-        this.moveType1 = movetype1;
-    }
-
     //getters
     public String getName(){return name;}
     public String getDescription(){return description;}
-    public Pokedex.MoveClass getClassification(){return classification;}
+    public MoveDex.MoveClass getClassification(){return classification;}
     public Pokedex.Type getMoveType1(){return moveType1;}
     public Pokedex.Type getMoveType2(){return moveType2;}
+
+
+
 }
