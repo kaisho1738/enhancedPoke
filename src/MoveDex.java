@@ -5,7 +5,6 @@ public class MoveDex {
     private ArrayList<Move> moves = new ArrayList<>();
     public enum MoveClass {HM, TM}
     public static Scanner scanner = new Scanner(System.in);
-    public static int moveCount = 0;
 
     public void printTitle() {
         System.out.println("\n" +
@@ -56,6 +55,11 @@ public class MoveDex {
         System.out.print("Move Name: ");
         String name = scanner.nextLine();
 
+        if(!checkName(name)){
+            System.out.println("Move name already taken!");
+            return;
+        }
+
         System.out.print("Move Description: ");
         String descrip = scanner.nextLine();
 
@@ -73,11 +77,11 @@ public class MoveDex {
 
         System.out.print("Type 2: ");
         String type2 = scanner.next().toUpperCase();
-        Pokedex.Type pokeType2 = Pokedex.Type.valueOf(type1);
+        Pokedex.Type pokeType2 = Pokedex.Type.valueOf(type2);
         move = new Move(name, descrip, classification, pokeType1, pokeType2);
         moves.add(move);
-        moveCount++;
 
+        System.out.println("Move: " + name + " added!");
 
     }
 
@@ -158,6 +162,15 @@ public class MoveDex {
         }
         System.out.println("Move not Found!");
         return;
+    }
+
+    public boolean checkName(String name){
+        for(Move toCheck: moves){
+            if(toCheck.getName().equalsIgnoreCase(name)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
