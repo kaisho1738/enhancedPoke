@@ -101,16 +101,28 @@ public class Pokedex {
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
+        Type pokeType1 = Type.NORMAL; //default
         printPokemonTypes();
-        System.out.print("Enter Type 1: ");
-        String type1 = scanner.next().toUpperCase();
-        scanner.nextLine();
-        Type pokeType1 = Type.valueOf(type1);
+        try {
+            System.out.print("Enter Type 1: ");
+            String type1 = scanner.next().toUpperCase();
+            scanner.nextLine();
+            pokeType1 = Type.valueOf(type1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Pokemon Type!");
+            return;
+        }
 
+        Type pokeType2 = Type.NORMAL; //default
         printPokemonTypes();
-        System.out.print("Enter Type 2: ");
-        String type2 = scanner.next().toUpperCase();
-        Type pokeType2 = Type.valueOf(type2);
+        try {
+            System.out.print("Enter Type 2: ");
+            String type2 = scanner.next().toUpperCase();
+            pokeType2 = Type.valueOf(type2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Pokemon Type!");
+            return;
+        }
 
         System.out.print("Enter Base Level: ");
         int baseLevel = scanner.nextInt();
