@@ -63,21 +63,44 @@ public class MoveDex {
         System.out.print("Move Description: ");
         String descrip = scanner.nextLine();
 
-        System.out.print("Classification: ");
-        String classif = scanner.next().toUpperCase();
-        scanner.nextLine();
-        MoveClass classification = MoveClass.valueOf(classif);
+        printClassification();
+        MoveClass classification;
+
+        try {
+            System.out.print("Classification: ");
+            String classif = scanner.next().toUpperCase();
+            scanner.nextLine();
+            classification = MoveClass.valueOf(classif);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Classification!");
+            return;
+        }
 
         Pokedex.printPokemonTypes();
-        System.out.print("Type 1: ");
-        String type1 = scanner.next().toUpperCase();
-        Pokedex.Type pokeType1 = Pokedex.Type.valueOf(type1);
+        Pokedex.Type pokeType1 = Pokedex.Type.NORMAL; //default
+
+        try {
+            System.out.print("Type 1: ");
+            String type1 = scanner.next().toUpperCase();
+             pokeType1 = Pokedex.Type.valueOf(type1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Move Type!");
+            return;
+        }
+
+        Pokedex.printPokemonTypes();
+        Pokedex.Type pokeType2 = Pokedex.Type.NORMAL; //default
+
+        try {
+            System.out.print("Type 2: ");
+            String type2 = scanner.next().toUpperCase();
+             pokeType2 = Pokedex.Type.valueOf(type2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Move Type!");
+            return;
+        }
 
         Move move;
-
-        System.out.print("Type 2: ");
-        String type2 = scanner.next().toUpperCase();
-        Pokedex.Type pokeType2 = Pokedex.Type.valueOf(type2);
         move = new Move(name, descrip, classification, pokeType1, pokeType2);
         moves.add(move);
 
@@ -89,9 +112,7 @@ public class MoveDex {
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
         System.out.println("| Name             | Description                                                                           | Classification | Type One   | Type Two   |");
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
-        int count = 0;
         for(Move toPrint: moves){
-            count++;
             System.out.printf("| %-16s | %-85s | %-14s | %-10s | %-10s |\n",  toPrint.getName(), toPrint.getDescription(), toPrint.getClassification(),
             toPrint.getMoveType1(), toPrint.getMoveType2());
             System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
@@ -99,7 +120,6 @@ public class MoveDex {
     }
 
     public void viewMove(Move move){
-        int i = 0;
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
         System.out.println("| Name             | Description                                                                           | Classification | Type One   | Type Two   |");
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
@@ -173,6 +193,13 @@ public class MoveDex {
         return true;
     }
 
+    public void printClassification(){
+        System.out.println("+-------------------------+");
+        System.out.println("|Available Classifications|");
+        System.out.println("+-------------------------+");
+        System.out.println("|    HM      |     TM     |");
+        System.out.println("+-------------------------+");
+    }
 
 
 

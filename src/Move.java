@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Move {
 
     //attributes
@@ -12,7 +9,6 @@ public class Move {
 
 
     //constructor
-    //with movetype2
     public Move(String name, String description, MoveDex.MoveClass classification,
                 Pokedex.Type movetype1, Pokedex.Type movetype2){
         this.name = name;

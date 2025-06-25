@@ -22,17 +22,7 @@ public class Pokemon {
     //constructor - create pokemon with cry
     public Pokemon(int dexNum, String pokeName, Pokedex.Type type1, Pokedex.Type type2, int baseLevel,
                    int evolvesFrom, int evolvesTo, int evoLevel, int hp, int atk, int def, int spd, String cry){
-        this.dexNum = dexNum;
-        this.pokeName = pokeName;
-        this.type1 = type1;
-        this.type2 = type2;
-        this.baseLevel = baseLevel;
-        this.evolvesFrom = evolvesFrom;
-        this.evolvesTo = evolvesTo;
-        this.hp = hp;
-        this.atk = atk;
-        this.def = def;
-        this.spd = spd;
+        this(dexNum, pokeName, type1, type2, baseLevel, evolvesFrom, evolvesTo, evoLevel, hp, atk, def, spd);
         this.cry = cry;
         totalPokemons++;
     }
@@ -47,6 +37,7 @@ public class Pokemon {
         this.baseLevel = baseLevel;
         this.evolvesFrom = evolvesFrom;
         this.evolvesTo = evolvesTo;
+        this.evoLevel = evoLevel;
         this.hp = hp;
         this.atk = atk;
         this.def = def;
@@ -96,22 +87,6 @@ public class Pokemon {
     //setter to change cry
     public void setCry(String cry){
         this.cry = cry;
-    }
-
-    //methods; (1) view all pokemon to be implemented in main (2) search pokemon in main
-    public void addMove(Move move){
-        if(moveCount < this.moves.length){
-            for(int i = 0; i< moveCount;i++){
-                if(this.moves[i].getName().equalsIgnoreCase(move.getName())){
-                    System.out.println("Error: Move already exists!");
-                    return;
-                }
-            }
-            this.moves[moveCount++] = move;
-            System.out.println(move.getName() + " added successfully!");
-        } else{
-            System.out.println("Error: No more slots available!");
-        }
     }
 
     public void goCry(Pokemon pokemon){

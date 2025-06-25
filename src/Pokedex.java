@@ -51,10 +51,6 @@ public class Pokedex {
         scanner.nextLine();
     }
 
-    public static void clearScreen() {
-        System.out.print("\033[2J\033[H");
-        System.out.flush();
-    }
 
     public void menu() {
         int option = -1;
@@ -105,16 +101,28 @@ public class Pokedex {
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
+        Type pokeType1 = Type.NORMAL; //default
         printPokemonTypes();
-        System.out.print("Enter Type 1: ");
-        String type1 = scanner.next().toUpperCase();
-        scanner.nextLine();
-        Type pokeType1 = Type.valueOf(type1);
+        try {
+            System.out.print("Enter Type 1: ");
+            String type1 = scanner.next().toUpperCase();
+            scanner.nextLine();
+            pokeType1 = Type.valueOf(type1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Pokemon Type!");
+            return;
+        }
 
+        Type pokeType2 = Type.NORMAL; //default
         printPokemonTypes();
-        System.out.print("Enter Type 2: ");
-        String type2 = scanner.next().toUpperCase();
-        Type pokeType2 = Type.valueOf(type2);
+        try {
+            System.out.print("Enter Type 2: ");
+            String type2 = scanner.next().toUpperCase();
+            pokeType2 = Type.valueOf(type2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Pokemon Type!");
+            return;
+        }
 
         System.out.print("Enter Base Level: ");
         int baseLevel = scanner.nextInt();
@@ -278,6 +286,11 @@ public class Pokedex {
         System.out.println("Pokemon not Found");
     }
     public boolean pokeDexChecker(int indexNum){
+        if(indexNum < 0){
+            System.out.println("Index Number Cannot be Less than 0");
+            return false;
+        }
+
         for(Pokemon checkDex: pokemons){
             if(indexNum == checkDex.getDexNum()){
                 System.out.println("Error: Pokedex Number Already Taken!");
