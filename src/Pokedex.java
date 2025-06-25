@@ -51,10 +51,6 @@ public class Pokedex {
         scanner.nextLine();
     }
 
-    public static void clearScreen() {
-        System.out.print("\033[2J\033[H");
-        System.out.flush();
-    }
 
     public void menu() {
         int option = -1;
