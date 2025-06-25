@@ -63,6 +63,7 @@ public class MoveDex {
         System.out.print("Move Description: ");
         String descrip = scanner.nextLine();
 
+        printClassification();
         System.out.print("Classification: ");
         String classif = scanner.next().toUpperCase();
         scanner.nextLine();
@@ -75,6 +76,7 @@ public class MoveDex {
 
         Move move;
 
+        Pokedex.printPokemonTypes();
         System.out.print("Type 2: ");
         String type2 = scanner.next().toUpperCase();
         Pokedex.Type pokeType2 = Pokedex.Type.valueOf(type2);
@@ -89,9 +91,7 @@ public class MoveDex {
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
         System.out.println("| Name             | Description                                                                           | Classification | Type One   | Type Two   |");
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
-        int count = 0;
         for(Move toPrint: moves){
-            count++;
             System.out.printf("| %-16s | %-85s | %-14s | %-10s | %-10s |\n",  toPrint.getName(), toPrint.getDescription(), toPrint.getClassification(),
             toPrint.getMoveType1(), toPrint.getMoveType2());
             System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
@@ -99,7 +99,6 @@ public class MoveDex {
     }
 
     public void viewMove(Move move){
-        int i = 0;
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
         System.out.println("| Name             | Description                                                                           | Classification | Type One   | Type Two   |");
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
@@ -173,6 +172,13 @@ public class MoveDex {
         return true;
     }
 
+    public void printClassification(){
+        System.out.println("+-------------------------+");
+        System.out.println("|Available Classifications|");
+        System.out.println("+-------------------------+");
+        System.out.println("|    HM      |     TM     |");
+        System.out.println("+-------------------------+");
+    }
 
 
 
