@@ -200,6 +200,7 @@ public class Pokedex {
         }
 
         pokemons.add(pokemon);  //adds pokemon to the arrayList of pokemons
+        System.out.println("Pokemon: " + name + " added!");
     }
 
     /** This method prints out all the pokemon types with colors */
