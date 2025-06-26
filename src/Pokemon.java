@@ -19,10 +19,7 @@ public class Pokemon {
     private int atk;
     private int def;
     private int spd;
-    private static int totalPokemons = 0;
     private String cry;
-    private Move[] moves = new Move[10];
-    private int moveCount = 0;
 
 
     /** constructor to create pokemon with cry
@@ -44,7 +41,6 @@ public class Pokemon {
                    int evolvesFrom, int evolvesTo, int evoLevel, int hp, int atk, int def, int spd, String cry){
         this(dexNum, pokeName, type1, type2, baseLevel, evolvesFrom, evolvesTo, evoLevel, hp, atk, def, spd);
         this.cry = cry;
-        totalPokemons++;
     }
 
     //constructor create pokemon with cry
@@ -63,7 +59,6 @@ public class Pokemon {
         this.atk = atk;
         this.def = def;
         this.spd = spd;
-        totalPokemons++;
     }
 
 
@@ -103,7 +98,6 @@ public class Pokemon {
         return spd;
     }
     public String getCry(){return cry;}
-    public Move[] getMoves(){return moves;}
 
     //Method to make a pokemon cry
     //@param pokemon    the specific pokemon instance
