@@ -1,11 +1,22 @@
+/**
+ * This class, MoveDex is responsible for managing and running the move Module
+ * It has the methods to add moves, view moves, and search moves
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MoveDex {
+    /** stores the list of created move objects */
     private ArrayList<Move> moves = new ArrayList<>();
+
+    /**
+     * Represents all possible classifications a move can take in.
+     */
     public enum MoveClass {HM, TM}
     public static Scanner scanner = new Scanner(System.in);
 
+    /** Prints a welcome statement for the move module. */
     public void printTitle() {
         System.out.println("\n" +
                 "███╗   ███╗ ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ██╗   ██╗██╗     ███████╗\n" +
@@ -18,6 +29,9 @@ public class MoveDex {
         Pokedex.pause();
     }
 
+    /** This method prints out the menu and is the main access/controller of the methods.
+     * This is the method that interacts with the user and calls out the appropriate methods accordingly.
+     * */
     public void menu() {
         int option = -1;
         do {
@@ -50,6 +64,7 @@ public class MoveDex {
 
     }
 
+    /** This method adds a move to the arraylist if all inputs are valid */
     public void addMove(){
         scanner.nextLine();
         System.out.print("Move Name: ");
@@ -66,6 +81,17 @@ public class MoveDex {
         printClassification();
         MoveClass classification;
 
+        /* For the following try-catch codes:
+         * Reads a string input from the user, then converting it into a enum data type and is then assigned.
+         * If the inputs a value that is not within the defined values of type(e,g., "FIRE") or MoveClass (e.g., "HM", "TM")
+         * the line : classification = MoveClass.valueOf(classif) will throw an error, called
+         * IllegalArgumentException stopping the program entirely.
+         * The catch block catches this exception, and informs the user that the input is invalid.
+         * Instead of the program crashing, this ends the method early.
+         *
+         * This is also used for the error handling of the move types
+         * */
+
         try {
             System.out.print("Classification: ");
             String classif = scanner.next().toUpperCase();
@@ -76,7 +102,7 @@ public class MoveDex {
             return;
         }
 
-        Pokedex.printPokemonTypes();
+        Pokedex.printPokemonTypes(); //uses the method in class Pokedex to display the types
         Pokedex.Type pokeType1 = Pokedex.Type.NORMAL; //default
 
         try {
@@ -89,7 +115,7 @@ public class MoveDex {
         }
 
         Pokedex.printPokemonTypes();
-        Pokedex.Type pokeType2 = Pokedex.Type.NORMAL; //default
+        Pokedex.Type pokeType2 = Pokedex.Type.NONE; //default
 
         try {
             System.out.print("Type 2: ");
@@ -102,12 +128,13 @@ public class MoveDex {
 
         Move move;
         move = new Move(name, descrip, classification, pokeType1, pokeType2);
-        moves.add(move);
+        moves.add(move); //if all is valid, it will add the move to the arraylist
 
         System.out.println("Move: " + name + " added!");
 
     }
 
+    /** This method prints out all the existing moves in the arraylist */
     public void viewMoves(){
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
         System.out.println("| Name             | Description                                                                           | Classification | Type One   | Type Two   |");
@@ -119,6 +146,8 @@ public class MoveDex {
         }
     }
 
+    /** This method prints out all the specified move in the parameter
+     * @param move      this is the specific move instance that will be displayed */
     public void viewMove(Move move){
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
         System.out.println("| Name             | Description                                                                           | Classification | Type One   | Type Two   |");
@@ -128,6 +157,8 @@ public class MoveDex {
         System.out.println("+------------------+---------------------------------------------------------------------------------------+----------------+------------+------------+");
     }
 
+    /** This method is used to instantly create pre-defined moves providing a convenient way to test the functionalities of move module
+     * without manually adding several moves. */
     public void initializeMoves(){
         Move move1 = new Move("Surf", "A huge wave that strikes all Pokémon in battle",
                 MoveDex.MoveClass.HM, Pokedex.Type.WATER, Pokedex.Type.NONE);
@@ -168,22 +199,58 @@ public class MoveDex {
 
     }
 
+
+    /** This method searches a move through the move name */
     public void searchMove(){
         scanner.nextLine();
-        System.out.print("Enter Move to Search: ");
-        String move = scanner.nextLine();
+        System.out.print("How would you like to search? [1] Name [2] Type: ");
+        int option = scanner.nextInt();
+        switch(option) {
+            case 1:System.out.print("Enter Name to Search: ");
+            String move = scanner.nextLine();
 
-        for(Move toFind: moves){
-            if(toFind.getName().equalsIgnoreCase(move)){
-                System.out.println("Move Found!");
-                viewMove(toFind);
-                return;
-            };
+            for (Move toFind : moves) {
+                if (toFind.getName().equalsIgnoreCase(move)) {
+                    System.out.println("Move Found!");
+                    viewMove(toFind);
+                    return;
+                }
+            }
+            System.out.println("Move not Found!");
+            break;
+            case 2:
+                Pokedex.Type pokeType;
+                try {
+                    Pokedex.printPokemonTypes();
+                    System.out.print("Enter Type: ");
+                    String type = scanner.next().toUpperCase();
+                    pokeType = Pokedex.Type.valueOf(type);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid Move Type!");
+                    return;
+                }
+
+                boolean found = false;
+                for(Move toFind: moves){
+                    if(pokeType == toFind.getMoveType1() || pokeType == toFind.getMoveType2()) {
+                        viewMove(toFind);
+                        found = true;
+                    }
+                }
+                if(!found){
+                    System.out.println(pokeType + " Pokemons not Found!");
+                }
+                break;
+            default:
+                System.out.println("Invalid Input");
         }
-        System.out.println("Move not Found!");
-        return;
     }
 
+    /**
+     * This method is used in addMove() to check if the name entered by the user is taken or not
+     * @param name      name entered by the user and will be compared to all other existing moves
+     *  @return true if the name is available and valid; false otherwise
+     * */
     public boolean checkName(String name){
         for(Move toCheck: moves){
             if(toCheck.getName().equalsIgnoreCase(name)){
@@ -193,6 +260,7 @@ public class MoveDex {
         return true;
     }
 
+    /** This method is used to print the available classifications for the move */
     public void printClassification(){
         System.out.println("+-------------------------+");
         System.out.println("|Available Classifications|");

@@ -1,3 +1,5 @@
+/** This class is responsible for allowing the user to access all modules*/
+
 import java.util.Scanner;
 public class main {
     public static void main(String[] args){

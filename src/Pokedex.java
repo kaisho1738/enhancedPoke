@@ -1,17 +1,30 @@
+/**
+ * This class, Pokedex is responsible for managing and running the pokedex Module
+ * It has the methods to add pokemons, view all pokemons, and search for a specific pokemon
+ */
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Pokedex {
+
+    /**
+     * Represents all possible types a pokemon can take in. By default, if the user does not choose to hand out a type 2
+     * for the pokemon, they are assigned to "NONE"
+     * Any other inputs that are not found within this enum Type will be marked invalid.
+     */
     public enum Type {
         NONE, BUG, DARK, DRAGON, ELECTRIC, FAIRY, FIGHTING, FIRE, FLYING, GHOST, GRASS,
         GROUND, ICE, NORMAL, POISON, PSYCHIC, ROCK, STEEL, WATER, UNKNOWN
     }
 
-
+    /** Stores the list of all created Pokemon objects. */
     private ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
     public static Scanner scanner = new Scanner(System.in);
 
-
+    /** This method is used to instantly create pre-defined pokemons providing a convenient way to test the functionalities of Pokedex
+     * without manually adding several pokemons. */
     public void initializePokemons() {
         Pokemon pokemon1 = new Pokemon(1, "Bulbasaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 1, 0, 2, 16, 45, 49, 49, 45, "RARARAHRAHRAH");
         Pokemon pokemon2 = new Pokemon(2, "Ivysaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 16, 1, 3, 32, 60, 62, 63, 60);
@@ -34,6 +47,7 @@ public class Pokedex {
 
     }
 
+    /** Prints a welcome statement for the Pokedex module. */
     public void printTitle() {
         System.out.println("\n" +
                 "██████╗  ██████╗ ██╗  ██╗███████╗██████╗ ███████╗██╗  ██╗    ███╗   ███╗ ██████╗ ██████╗ ██╗   ██╗██╗     ███████╗\n" +
@@ -46,12 +60,15 @@ public class Pokedex {
         pause();
     }
 
+    /** This method allows provides a brief pause before proceeding. Pressing enter in the user's keyboard will end this method. */
     public static void pause() {
         System.out.print("Press ENTER to continue . . .");
         scanner.nextLine();
     }
 
-
+    /** This method prints out the menu and is the main access/controller of the methods.
+     * This is the method that interacts with the user and calls out the appropriate methods accordingly.
+     * */
     public void menu() {
         int option = -1;
         do {
@@ -88,6 +105,10 @@ public class Pokedex {
 
     }
 
+    /**
+     * Creates a new Pokémon based on user input and adds it to the Pokémon ArrayList
+     * if all input values are valid.
+     */
 
     public void addPokemon() {
         System.out.print("Enter Pokedex Number: ");
@@ -103,6 +124,16 @@ public class Pokedex {
 
         Type pokeType1 = Type.NORMAL; //default
         printPokemonTypes();
+
+        /* For the following try-catch codes:
+         * Reads a string input from the user, then converting it into a enum data type and is then assigned.
+         * If the inputs a value that is not within the defined values of type(e,g., "FIRE")
+         * the line : pokeType1 = Type.valueof(type1) will throw an error, called
+         * IllegalArgumentException stopping the program entirely
+         * The catch block catches this exception, and informs the user that the input is invalid.
+         * Instead of the program crashing, this ends the method early.
+         * */
+
         try {
             System.out.print("Enter Type 1: ");
             String type1 = scanner.next().toUpperCase();
@@ -113,7 +144,7 @@ public class Pokedex {
             return;
         }
 
-        Type pokeType2 = Type.NORMAL; //default
+        Type pokeType2 = Type.NONE; //default
         printPokemonTypes();
         try {
             System.out.print("Enter Type 2: ");
@@ -168,10 +199,11 @@ public class Pokedex {
             return;
         }
 
-        pokemons.add(pokemon);
+        pokemons.add(pokemon);  //adds pokemon to the arrayList of pokemons
+        System.out.println("Pokemon: " + name + " added!");
     }
 
-
+    /** This method prints out all the pokemon types with colors */
     public static void printPokemonTypes() {
         System.out.println("***********************************************************************");
         System.out.println("*                            TYPE SELECTION                           *");
@@ -182,6 +214,7 @@ public class Pokedex {
         System.out.println("***********************************************************************");
     }
 
+    /** This method prints out all the pokemons in arrayList in a tabular form */
     public void viewPokemons(){
         System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");
         System.out.println("| No.    | Name               | Type One   | Type Two   |Base Lvl    |Evo Lvl     | \033[32mHP\033[0m  | \033[31mAtk\033[0m | \033[34mDfs\033[0m | \033[33mSpd\033[0m | Evolves From    | Evolves To    |");
@@ -209,6 +242,9 @@ public class Pokedex {
         }
     }
 
+    /** This method prints out all the pokemon specified in the parameter in a tabular form
+     * @param pokemon       this represents the specific pokemon instance that will be viewed
+     * */
     public void viewPokemon(Pokemon pokemon){
         System.out.println("+--------+--------------------+------------+------------+------------+------------+-----+-----+-----+-----+-----------------+---------------+");
         System.out.println("| No.    | Name               | Type One   | Type Two   |Base Lvl    |Evo Lvl     | \033[32mHP\033[0m  | \033[31mAtk\033[0m | \033[34mDfs\033[0m | \033[33mSpd\033[0m | Evolves From    | Evolves To    |");
@@ -233,9 +269,9 @@ public class Pokedex {
 
     }
 
-
+    /** This method is responsible for searching a pokemon through the index number or pokemon name */
     public void searchPokemon(){
-        System.out.print("How would you like to search? [1] Index Number [2] Pokemon Name: ");
+        System.out.print("How would you like to search? [1] Index Number [2] Pokemon Name [3] Type: ");
         int option = scanner.nextInt();
         scanner.nextLine();
         switch(option){
@@ -263,11 +299,38 @@ public class Pokedex {
                     }
                 System.out.println("Pokemon not Found");
                 break;
+            case 3:
+                Type pokeType;
+
+                try {
+                    printPokemonTypes();
+                    System.out.print("Enter Type: ");
+                    String type = scanner.next().toUpperCase();
+                    pokeType = Type.valueOf(type);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid Pokemon Type!");
+                    return;
+                }
+
+
+                boolean found = false;
+                for(Pokemon toFind: pokemons){
+                    if(pokeType == toFind.getType1() || pokeType == toFind.getType2()) {
+                        viewPokemon(toFind);
+                        found = true;
+                    }
+                }
+                if(!found){
+                    System.out.println(pokeType + " Pokemons not Found!");
+                }
+                break;
             default:
                 System.out.println("Error: Invalid Input");
         }
 
     }
+
+    /** This method is reponsible for playing the cry of a pokemon */
     public void makePokemonCry(){
         System.out.print("Enter Pokemon Index Number: ");
         int dexNum = scanner.nextInt();
@@ -285,9 +348,15 @@ public class Pokedex {
         }
         System.out.println("Pokemon not Found");
     }
+
+    /** This method is used in the addPokemon() method to check if the pokemon index number entered is taken already
+     * and also checks if the pokedex number is not negative
+     * @param indexNum      the index number of the pokemon to be checked
+     * @return true if the index number is available and valid; false otherwise
+     * */
     public boolean pokeDexChecker(int indexNum){
         if(indexNum < 0){
-            System.out.println("Index Number Cannot be Less than 0");
+            System.out.println("Pokedex Number Cannot be Less than 0");
             return false;
         }
 
