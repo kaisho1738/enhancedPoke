@@ -287,7 +287,7 @@ public class Pokedex {
     }
     public boolean pokeDexChecker(int indexNum){
         if(indexNum < 0){
-            System.out.println("Index Number Cannot be Less than 0");
+            System.out.println("Pokedex Number Cannot be Less than 0");
             return false;
         }
 
