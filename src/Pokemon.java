@@ -1,4 +1,4 @@
-/*
+/**
 This class represents an individual pokemon, the attributes and constructors gives a blueprint for the pokemon.
 The getters in this class allow other classes to access the assigned values to the attributes.
 There are currently no setters because there is not an option or a feature to change any of the pokemon's attributes
@@ -25,7 +25,7 @@ public class Pokemon {
     private int moveCount = 0;
 
 
-    /* constructor to create pokemon with cry
+    /** constructor to create pokemon with cry
      * @param dexNum        Pokedex Number
      * @param pokeName      Pokemon Name
      * @param type1         Primary Type

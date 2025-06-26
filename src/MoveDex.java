@@ -89,7 +89,7 @@ public class MoveDex {
         }
 
         Pokedex.printPokemonTypes();
-        Pokedex.Type pokeType2 = Pokedex.Type.NORMAL; //default
+        Pokedex.Type pokeType2 = Pokedex.Type.NONE; //default
 
         try {
             System.out.print("Type 2: ");
