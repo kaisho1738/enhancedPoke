@@ -271,7 +271,7 @@ public class Pokedex {
 
     /** This method is responsible for searching a pokemon through the index number or pokemon name */
     public void searchPokemon(){
-        System.out.print("How would you like to search? [1] Index Number [2] Pokemon Name: ");
+        System.out.print("How would you like to search? [1] Index Number [2] Pokemon Name [3] Type: ");
         int option = scanner.nextInt();
         scanner.nextLine();
         switch(option){
@@ -298,6 +298,31 @@ public class Pokedex {
                     }
                     }
                 System.out.println("Pokemon not Found");
+                break;
+            case 3:
+                Type pokeType;
+
+                try {
+                    printPokemonTypes();
+                    System.out.print("Enter Type: ");
+                    String type = scanner.next().toUpperCase();
+                    pokeType = Type.valueOf(type);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid Pokemon Type!");
+                    return;
+                }
+
+
+                boolean found = false;
+                for(Pokemon toFind: pokemons){
+                    if(pokeType == toFind.getType1() || pokeType == toFind.getType2()) {
+                        viewPokemon(toFind);
+                        found = true;
+                    }
+                }
+                if(!found){
+                    System.out.println(pokeType + " Pokemons not Found!");
+                }
                 break;
             default:
                 System.out.println("Error: Invalid Input");

@@ -203,18 +203,47 @@ public class MoveDex {
     /** This method searches a move through the move name */
     public void searchMove(){
         scanner.nextLine();
-        System.out.print("Enter Move to Search: ");
-        String move = scanner.nextLine();
+        System.out.print("How would you like to search? [1] Name [2] Type: ");
+        int option = scanner.nextInt();
+        switch(option) {
+            case 1:System.out.print("Enter Name to Search: ");
+            String move = scanner.nextLine();
 
-        for(Move toFind: moves){
-            if(toFind.getName().equalsIgnoreCase(move)){
-                System.out.println("Move Found!");
-                viewMove(toFind);
-                return;
-            };
+            for (Move toFind : moves) {
+                if (toFind.getName().equalsIgnoreCase(move)) {
+                    System.out.println("Move Found!");
+                    viewMove(toFind);
+                    return;
+                }
+            }
+            System.out.println("Move not Found!");
+            break;
+            case 2:
+                Pokedex.Type pokeType;
+                try {
+                    Pokedex.printPokemonTypes();
+                    System.out.print("Enter Type: ");
+                    String type = scanner.next().toUpperCase();
+                    pokeType = Pokedex.Type.valueOf(type);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid Move Type!");
+                    return;
+                }
+
+                boolean found = false;
+                for(Move toFind: moves){
+                    if(pokeType == toFind.getMoveType1() || pokeType == toFind.getMoveType2()) {
+                        viewMove(toFind);
+                        found = true;
+                    }
+                }
+                if(!found){
+                    System.out.println(pokeType + " Pokemons not Found!");
+                }
+                break;
+            default:
+                System.out.println("Invalid Input");
         }
-        System.out.println("Move not Found!");
-        return;
     }
 
     /**
