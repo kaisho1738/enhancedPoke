@@ -3,6 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * THINGS TO FIX:
+ * - Search method
+ * - initialized items
+ * - enum
+ *
+ */
+
+/**
  *
  *
  */
