@@ -1,4 +1,8 @@
 /** This class is responsible for allowing the user to access all modules*/
+/**
+ * do comments as well! like descriptions
+ *
+ */
 
 import java.util.Scanner;
 public class main {
