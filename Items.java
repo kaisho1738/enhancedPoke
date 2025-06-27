@@ -6,7 +6,7 @@
 
 public class Items {
     private String name;
-    private String category;
+    private ItemsDex.Category category;
     private String description;
     private String effect;
     private int minBuyingPrice;
@@ -23,7 +23,7 @@ public class Items {
      * @param sellingPrice      Selling price of the item
      * */
 
-    public Items(String name, String category, String description, String effect,
+    public Items(String name, ItemsDex.Category category, String description, String effect,
                  int minBuyingPrice, int maxBuyingPrice, int sellingPrice) {
         this.name = name;
         this.category = category;
@@ -39,7 +39,7 @@ public class Items {
     public String getName() {
         return name;
     }
-    public String getCategory() {
+    public ItemsDex.Category getCategory() {
         return category;
     }
     public String getDescription() {
@@ -64,7 +64,7 @@ public class Items {
         } else if (minBuyingPrice == maxBuyingPrice) {
             return "₽" + minBuyingPrice;
         } else {
-            return "₽" + minBuyingPrice + "–₽" + maxBuyingPrice;
+            return "₽" + minBuyingPrice + " – ₽" + maxBuyingPrice;
         }
     }
 }
