@@ -26,15 +26,15 @@ public class Pokedex {
     /** This method is used to instantly create pre-defined pokemons providing a convenient way to test the functionalities of Pokedex
      * without manually adding several pokemons. */
     public void initializePokemons() {
-        Pokemon pokemon1 = new Pokemon(1, "Bulbasaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 1, 0, 2, 16, 45, 49, 49, 45, "RARARAHRAHRAH");
-        Pokemon pokemon2 = new Pokemon(2, "Ivysaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 16, 1, 3, 32, 60, 62, 63, 60);
-        Pokemon pokemon3 = new Pokemon(3, "Venusaur", Pokedex.Type.GRASS, Pokedex.Type.POISON, 32, 2, 0, 0, 80, 82, 83, 80);
-        Pokemon pokemon4 = new Pokemon(4, "Charmander", Pokedex.Type.FIRE, Pokedex.Type.NORMAL, 1, 0, 5, 16, 39, 52, 43, 65);
-        Pokemon pokemon5 = new Pokemon(5, "Charmeleon", Pokedex.Type.FIRE, Pokedex.Type.NORMAL, 16, 4, 6, 36, 58, 64, 58, 80);
-        Pokemon pokemon6 = new Pokemon(6, "Charizard", Pokedex.Type.FIRE, Pokedex.Type.FLYING, 36, 5, 0, 0, 78, 84, 78, 100, "HUHUUHUHU");
-        Pokemon pokemon7 = new Pokemon(7, "Squirtle", Pokedex.Type.WATER, Pokedex.Type.NORMAL, 1, 0, 8, 16, 44, 48, 65, 43);
-        Pokemon pokemon8 = new Pokemon(8, "Wartortle", Pokedex.Type.WATER, Pokedex.Type.NORMAL, 16, 7, 9, 36, 59, 63, 80, 58);
-        Pokemon pokemon9 = new Pokemon(9, "Blastoise", Pokedex.Type.WATER, Pokedex.Type.NORMAL, 36, 8, 0, 0, 79, 83, 100, 78);
+        Pokemon pokemon1 = new Pokemon(1, "Bulbasaur", Type.GRASS, Type.POISON, 1, 0, 2, 16, 45, 49, 49, 45, "RARARAHRAHRAH");
+        Pokemon pokemon2 = new Pokemon(2, "Ivysaur", Type.GRASS, Type.POISON, 16, 1, 3, 32, 60, 62, 63, 60);
+        Pokemon pokemon3 = new Pokemon(3, "Venusaur", Type.GRASS, Type.POISON, 32, 2, 0, 0, 80, 82, 83, 80);
+        Pokemon pokemon4 = new Pokemon(4, "Charmander", Type.FIRE, Type.NORMAL, 1, 0, 5, 16, 39, 52, 43, 65);
+        Pokemon pokemon5 = new Pokemon(5, "Charmeleon", Type.FIRE, Type.NORMAL, 16, 4, 6, 36, 58, 64, 58, 80);
+        Pokemon pokemon6 = new Pokemon(6, "Charizard", Type.FIRE, Type.FLYING, 36, 5, 0, 0, 78, 84, 78, 100, "HUHUUHUHU");
+        Pokemon pokemon7 = new Pokemon(7, "Squirtle", Type.WATER, Type.NORMAL, 1, 0, 8, 16, 44, 48, 65, 43);
+        Pokemon pokemon8 = new Pokemon(8, "Wartortle", Type.WATER, Type.NORMAL, 16, 7, 9, 36, 59, 63, 80, 58);
+        Pokemon pokemon9 = new Pokemon(9, "Blastoise", Type.WATER, Type.NORMAL, 36, 8, 0, 0, 79, 83, 100, 78);
         pokemons.add(pokemon1);
         pokemons.add(pokemon2);
         pokemons.add(pokemon3);
@@ -271,63 +271,35 @@ public class Pokedex {
 
     /** This method is responsible for searching a pokemon through the index number or pokemon name */
     public void searchPokemon(){
-        System.out.print("How would you like to search? [1] Index Number [2] Pokemon Name [3] Type: ");
-        int option = scanner.nextInt();
-        scanner.nextLine();
-        switch(option){
-            case 1:
-                System.out.print("Enter Index Number: ");
-                int dexNum = scanner.nextInt();
-                for(Pokemon toFind: pokemons){
-                    if(dexNum == toFind.getDexNum()){
-                        System.out.println("Pokemon Found");
-                        viewPokemon(toFind);
-                        return;
-                    }
-                }
-                System.out.println("Pokemon not Found");
-                break;
-            case 2:
-                System.out.print("Enter Pokemon Name: ");
-                String pokeName = scanner.nextLine();
-                for(Pokemon toFind: pokemons){
-                    if(pokeName.equalsIgnoreCase(toFind.getPokeName())) {
-                        System.out.println("Pokemon Found");
-                        viewPokemon(toFind);
-                        return;
-                    }
-                    }
-                System.out.println("Pokemon not Found");
-                break;
-            case 3:
-                Type pokeType;
-
-                try {
-                    printPokemonTypes();
-                    System.out.print("Enter Type: ");
-                    String type = scanner.next().toUpperCase();
-                    pokeType = Type.valueOf(type);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid Pokemon Type!");
-                    return;
-                }
-
+                scanner.nextLine();
+                Type pokeType = null;
+                System.out.print("Enter Keyword to Search: ");
+                String input = scanner.nextLine();
 
                 boolean found = false;
-                for(Pokemon toFind: pokemons){
-                    if(pokeType == toFind.getType1() || pokeType == toFind.getType2()) {
-                        viewPokemon(toFind);
-                        found = true;
-                    }
-                }
-                if(!found){
-                    System.out.println(pokeType + " Pokemons not Found!");
-                }
-                break;
-            default:
-                System.out.println("Error: Invalid Input");
-        }
+                String type = input.toUpperCase();
 
+                //tries to assign the string input to the enum data type
+                try {
+                    pokeType = Type.valueOf(type);
+                } catch (IllegalArgumentException e) {
+                }
+
+            for(Pokemon toFind: pokemons){
+                boolean nameMatch = toFind.getPokeName() != null &&
+                    toFind.getPokeName().toUpperCase().contains(input.toUpperCase());
+                boolean cryMatch = toFind.getCry() != null &&
+                    toFind.getCry().toUpperCase().contains(input.toUpperCase());
+                boolean typeMatch = pokeType == toFind.getType1() || pokeType == toFind.getType2();
+
+                if(nameMatch || cryMatch || typeMatch) {
+                viewPokemon(toFind);
+                found = true;
+                }
+            }
+                if(!found){
+                    System.out.println(input + " Pokemons not Found!");
+                }
     }
 
     /** This method is reponsible for playing the cry of a pokemon */
