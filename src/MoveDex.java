@@ -203,46 +203,41 @@ public class MoveDex {
     /** This method searches a move through the move name */
     public void searchMove(){
         scanner.nextLine();
-        System.out.print("How would you like to search? [1] Name [2] Type: ");
-        int option = scanner.nextInt();
-        switch(option) {
-            case 1:System.out.print("Enter Name to Search: ");
-            String move = scanner.nextLine();
+        Pokedex.Type Movetype = null;
+        MoveClass classification = null;
+        System.out.print("Enter Keyword to Search: ");
+        String input = scanner.nextLine();
 
-            for (Move toFind : moves) {
-                if (toFind.getName().equalsIgnoreCase(move)) {
-                    System.out.println("Move Found!");
-                    viewMove(toFind);
-                    return;
-                }
+        boolean found = false;
+        String type = input.toUpperCase();
+        String classi = input.toUpperCase();
+
+        //tries to assign the string input to the enum data type
+        try {
+            Movetype = Pokedex.Type.valueOf(type);
+        } catch (IllegalArgumentException e) {
+        }
+
+        try {
+            classification = MoveClass.valueOf(classi);
+        } catch (IllegalArgumentException e) {
+        }
+
+        for(Move toFind: moves){
+            boolean nameMatch = toFind.getName() != null &&
+                    toFind.getName().toUpperCase().contains(input.toUpperCase());
+            boolean descripMatch = toFind.getDescription() != null &&
+                    toFind.getDescription().toUpperCase().contains(input.toUpperCase());
+            boolean typeMatch = Movetype == toFind.getMoveType1() ||Movetype == toFind.getMoveType2();
+            boolean classiMatch  = classification == toFind.getClassification() && classification != null;
+
+            if(nameMatch || descripMatch || typeMatch || classiMatch) {
+                viewMove(toFind);
+                found = true;
             }
-            System.out.println("Move not Found!");
-            break;
-            case 2:
-                Pokedex.Type pokeType;
-                try {
-                    Pokedex.printPokemonTypes();
-                    System.out.print("Enter Type: ");
-                    String type = scanner.next().toUpperCase();
-                    pokeType = Pokedex.Type.valueOf(type);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid Move Type!");
-                    return;
-                }
-
-                boolean found = false;
-                for(Move toFind: moves){
-                    if(pokeType == toFind.getMoveType1() || pokeType == toFind.getMoveType2()) {
-                        viewMove(toFind);
-                        found = true;
-                    }
-                }
-                if(!found){
-                    System.out.println(pokeType + " Pokemons not Found!");
-                }
-                break;
-            default:
-                System.out.println("Invalid Input");
+        }
+        if(!found){
+            System.out.println(input + " Moves not Found!");
         }
     }
 
